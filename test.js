@@ -1,9 +1,9 @@
 import {
-    cubeVertexArray,
-    cubeVertexSize,
-    cubeUVOffset,
-    cubePositionOffset,
-    cubeVertexCount,
+  cubeVertexArray,
+  cubeVertexSize,
+  cubeUVOffset,
+  cubePositionOffset,
+  cubeVertexCount,
 } from "./cube.js";
 
 import {
@@ -23,6 +23,9 @@ const context = canvas.getContext("webgpu");
 const format = navigator.gpu.getPreferredCanvasFormat();
 context.configure({ device: device, format: format, })
 
+const devicePixelRatio = window.devicePixelRatio;
+canvas.width = canvas.clientWidth * devicePixelRatio;
+canvas.height = canvas.clientHeight * devicePixelRatio;
 const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
 
 //Chargement des shaders
@@ -33,59 +36,59 @@ const cubeFragmentShaders = await fetch("shaders/cube/frag.wgsl");
 const cubeFragmentShadersCode = await cubeFragmentShaders.text();
 
 const verticesBuffer = device.createBuffer({
-    size: cubeVertexArray.byteLength,
-    usage: GPUBufferUsage.VERTEX,
-    mappedAtCreation: true,
+  size: cubeVertexArray.byteLength,
+  usage: GPUBufferUsage.VERTEX,
+  mappedAtCreation: true,
 });
 
 new Float32Array(verticesBuffer.getMappedRange()).set(cubeVertexArray);
 verticesBuffer.unmap();
 
 const pipeline = device.createRenderPipeline({
-    layout: "auto",
-    vertex: {
-        module: device.createShaderModule({
-            code: cubeVertexShadersCode,
-        }),
-        buffers: [
-            {
-                arrayStride: cubeVertexSize,
-                attributes: [
-                    {
-                        // position
-                        shaderLocation: 0,
-                        offset: cubePositionOffset,
-                        format: "float32x4",
-                    },
-                    {
-                        // uv
-                        shaderLocation: 1,
-                        offset: cubeUVOffset,
-                        format: 'float32x2',
-                    },
-                ],
-            },
+  layout: "auto",
+  vertex: {
+    module: device.createShaderModule({
+      code: cubeVertexShadersCode,
+    }),
+    buffers: [
+      {
+        arrayStride: cubeVertexSize,
+        attributes: [
+          {
+            // position
+            shaderLocation: 0,
+            offset: cubePositionOffset,
+            format: "float32x4",
+          },
+          {
+            // uv
+            shaderLocation: 1,
+            offset: cubeUVOffset,
+            format: 'float32x2',
+          },
         ],
-    },
-    fragment: {
-        module: device.createShaderModule({
-            code: cubeFragmentShadersCode,
-        }),
-        targets: [
-            {
-                format: presentationFormat,
-            },
-        ],
-    },
-    primitive: {
-        topology: "triangle-list",
-        cullMode: "back",
-    },
-    depthStencil: {
-        depthWriteEnabled: true,
-        depthCompare: 'less',
-        format: 'depth24plus',
-    }
+      },
+    ],
+  },
+  fragment: {
+    module: device.createShaderModule({
+      code: cubeFragmentShadersCode,
+    }),
+    targets: [
+      {
+        format: presentationFormat,
+      },
+    ],
+  },
+  primitive: {
+    topology: "triangle-list",
+    cullMode: "back",
+  },
+  depthStencil: {
+    depthWriteEnabled: true,
+    depthCompare: 'less',
+    format: 'depth24plus',
+  }
 });
 
 const depthTexture = device.createTexture({
@@ -163,7 +166,7 @@ function getTransformationMatrix() {
   const viewMatrix = mat4.identity();
   mat4.translate(viewMatrix, [0, 0, -4], viewMatrix);
   const now = Date.now() / 1000;
-  mat4.rotate(viewMatrix, [Math.sin(now), Math.cos(now), 0], 1, viewMatrix);
+  mat4.rotate(viewMatrix, [0, 1, 0], now, viewMatrix);
 
   mat4.multiply(projectionMatrix, viewMatrix, modelViewProjectionMatrix);
 
