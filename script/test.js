@@ -1,4 +1,9 @@
 import {
+  mat4,
+} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js';
+
+
+import {
   cubeVertexArray,
   cubeVertexSize,
   cubeUVOffset,
@@ -6,10 +11,7 @@ import {
   cubeVertexCount,
 } from "./cube.js";
 
-import {
-  vec3,
-  mat4,
-} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js';
+import { parseObjFile } from "./utils/objParser.js";
 
 // Code de base
 const canvas = document.getElementById("canvas-container");
@@ -34,6 +36,21 @@ const cubeVertexShadersCode = await cubeVertexShaders.text();
 
 const cubeFragmentShaders = await fetch("shaders/cube/frag.wgsl");
 const cubeFragmentShadersCode = await cubeFragmentShaders.text();
+
+/*
+const objContent = await (await fetch("script/obj/test.obj")).text();
+
+console.log(objInfo);
+
+const verticesBuffer = device.createBuffer({
+  size: objInfo.vertices.byteLength + objInfo.uvs.byteLength,
+  usage: GPUBufferUsage.VERTEX,
+  mappedAtCreation: true,
+});
+
+new Float32Array(verticesBuffer.getMappedRange()).set(cubeVertexArray);
+verticesBuffer.unmap();
+*/
 
 const verticesBuffer = device.createBuffer({
   size: cubeVertexArray.byteLength,
@@ -91,6 +108,7 @@ const pipeline = device.createRenderPipeline({
   }
 });
 
+
 const depthTexture = device.createTexture({
   size: [canvas.width, canvas.height],
   format: 'depth24plus',
@@ -106,7 +124,7 @@ const uniformBuffer = device.createBuffer({
 // Fetch the image and upload it into a GPUTexture.
 let cubeTexture;
 {
-  const response = await fetch('img/test.png');
+  const response = await fetch('script/texture/test.png');
   const imageBitmap = await createImageBitmap(await response.blob());
 
   cubeTexture = device.createTexture({
@@ -144,7 +162,7 @@ const renderPassDescriptor = {
     {
       view: undefined, // Assigned later
 
-      clearValue: [0.5, 0.5, 0.5, 1.0],
+      clearValue: { r: 0.1, g: 0.1, b: 0.2, a: 1.0 },
       loadOp: 'clear',
       storeOp: 'store',
     },
