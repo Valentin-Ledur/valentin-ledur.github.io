@@ -13,8 +13,13 @@
     <div class="grid-container">
         <!-- Menu -->
         <div id="menu-container" class="grid-menu text-center">
-
+            <div id="pages"></div>
+            <div id="menu-input" class="">
+                <input type="file" id="obj" accept=".obj">
+                <input type="file" id="texture" accept="image/*">
+            </div>
         </div>
+
         <!-- Affichage du menu selectionné -->
         <div class="grid-body center">
             <canvas id="canvas-container"></canvas>
@@ -25,9 +30,10 @@
         fetch('menu.html')
             .then(response => response.text())
             .then(data => {
-                document.getElementById('menu-container').innerHTML = data;
+                document.getElementById("pages").innerHTML = data;
             });
     </script>
     <script type="module" src="script/test.js"></script>
 </body>
+
 </html>

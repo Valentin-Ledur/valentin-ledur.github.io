@@ -1,6 +1,6 @@
-import * as THREE from 'https://esm.sh/three@0.160.0';
+import * as THREE from 'https://esm.sh/three@0.161.0';
 
-import { GLTFLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+import { GLTFLoader } from 'https://esm.sh/three@0.161.0/examples/jsm/loaders/GLTFLoader.js';
 
 const container = document.getElementById('canvas-container');
 
