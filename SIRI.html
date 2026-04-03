@@ -7,6 +7,14 @@
     <title>Portfolio</title>
 
     <link rel="stylesheet" href="style/style.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.183.2/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.183.2/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -14,7 +22,7 @@
         <!-- Menu -->
         <div id="menu-container" class="grid-menu text-center"></div>
         <!-- Affichage du menu selectionné -->
-        <div class="grid-body center">
+        <div class="grid-body center"> 
             <div id="canvas-container"></div>
         </div>
     </div>
