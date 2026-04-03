@@ -18,7 +18,7 @@ button.addEventListener("click", async (event) => {
     try {
         await init(await obj.text(), texture);
     } catch (error) {
-        console.log("C'est la merde !");
+        console.log("Erreur lors du chargement de l'obj/texture.");
     }
 });
 

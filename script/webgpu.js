@@ -27,7 +27,7 @@ const cubeVertexShadersCode = await cubeVertexShaders.text();
 const cubeFragmentShaders = await fetch("shaders/cube/frag.wgsl");
 const cubeFragmentShadersCode = await cubeFragmentShaders.text();
 
-const objText = await(await fetch("obj/mangas.obj")).text();
+const objText = await(await fetch("models/mangas.obj")).text();
 const textureFile = await fetch("texture/mangas.webp");
 
 const obj = parseObjFile(objText);

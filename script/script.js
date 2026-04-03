@@ -1,28 +1,37 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const canvas = document.getElementById('canvas-container');
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize( canvas.clientWidth, canvas.clientHeight );
-renderer.setAnimationLoop( animate );
-canvas.appendChild( renderer.domElement );
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+renderer.setAnimationLoop(animate);
+canvas.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+const light = new THREE.AmbientLight(0xFFFFFF);
+scene.add(light);
+const size = 100;
+const divisions = 50;
+const gridHelper = new THREE.GridHelper(size, divisions);
+scene.add(gridHelper);
 
-camera.position.z = 5;
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
 
-function animate( time ) {
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0, 5, 0);
+controls.update();
 
-  cube.rotation.x = time / 2000;
-  cube.rotation.y = time / 1000;
+const loader = new GLTFLoader();
+const gltf = await loader.loadAsync('models/Untitled.glb');
+scene.add(gltf.scene);
 
-  renderer.render( scene, camera );
+camera.position.set(0, 5, 15);
 
+function animate() {
+    renderer.render(scene, camera);
 }
