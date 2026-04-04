@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="background text-white">
 
 <head>
     <meta charset="UTF-8">
@@ -7,24 +7,37 @@
     <title>Portfolio</title>
 
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/menu.css">
+    <link rel="stylesheet" href="style/color.css">
 </head>
 
 <body>
     <div class="grid-container">
         <!-- Menu -->
-        <div id="menu-container" class="grid-menu text-center"></div>
+        <div id="menu-container" class="grid-menu menu-background">
+            <div id="pages"></div>
+        </div>
+        <!-- Affichage du menu selectionné -->
         <div class="grid-body">
             <h1 class="text-center">Accueil</h1>
         </div>
-    </div>
-    <!-- Recuperation du menu -->
-    <script>
-        fetch('menu.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('menu-container').innerHTML = data;
-            });
-    </script>
+        <!-- Recuperation du menu -->
+        <script>
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("pages").innerHTML = data;
+
+                    const btn = document.getElementById('menu-toggle');
+                    const list = document.getElementById('menu-links');
+
+                    if (btn && list) {
+                        btn.addEventListener('click', () => {
+                            list.classList.toggle('active');
+                        });
+                    }
+                });
+        </script>
 </body>
 
 </html>

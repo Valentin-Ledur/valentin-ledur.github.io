@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="background text-white">
 
 <head>
     <meta charset="UTF-8">
@@ -7,17 +7,27 @@
     <title>Portfolio</title>
 
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/menu.css">
+    <link rel="stylesheet" href="style/color.css">
 </head>
 
 <body>
     <div class="grid-container">
         <!-- Menu -->
-        <div id="menu-container" class="grid-menu text-center">
+        <div id="menu-container" class="grid-menu menu-background">
             <div id="pages"></div>
-            <div id="menu-input" class="">
-                <input type="file" id="obj" accept=".obj">
-                <input type="file" id="texture" accept="image/*">
-                <button id="start-renderer" style="padding: 10px 20px; background-color: #38bdf8; color: #0b1120; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;"></button>
+            <div id="menu-input" class="file-inputs-container">
+                <div class="input-group">
+                    <label for="obj">1. Fichier Modèle (.obj)</label>
+                    <input type="file" id="obj" accept=".obj">
+                </div>
+
+                <div class="input-group">
+                    <label for="texture">2. Fichier Texture (Image)</label>
+                    <input type="file" id="texture" accept="image/*">
+                </div>
+
+                <button id="start-renderer" class="menu-load-button">Afficher le modèle</button>
             </div>
         </div>
 
@@ -32,6 +42,15 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById("pages").innerHTML = data;
+
+                const btn = document.getElementById('menu-toggle');
+                const list = document.getElementById('menu-links');
+
+                if (btn && list) {
+                    btn.addEventListener('click', () => {
+                        list.classList.toggle('active');
+                    });
+                }
             });
     </script>
     <script type="module" src="script/loader.js"></script>

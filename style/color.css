@@ -1,0 +1,21 @@
+.background {
+    background-color: #0b1120;
+}
+
+.text-white {
+    color: white;
+    font-family: sans-serif;
+}
+
+.menu-background {
+    background-color: #151e32;
+}
+
+.menu-element:hover {
+    background-color: #2a364d;
+    color: #38bdf8;
+}
+
+.canvas-color {
+    background: #222;
+}
