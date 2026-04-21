@@ -76,7 +76,7 @@ export class Camera {
 
         document.addEventListener("mousemove", (event) => {
             if (this.isMouseDown) {
-                this.rotate(event.movementX * this.sensitivity, -event.movementY * this.sensitivity);
+                this.rotate(event.movementX * this.sensitivity, event.movementY * this.sensitivity);
             }
         });
 

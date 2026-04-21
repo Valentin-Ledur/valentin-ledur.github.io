@@ -191,6 +191,7 @@ const modelViewProjectionMatrix = mat4.create()
 
 
 let camera = new Camera(canvas.width, canvas.height);
+camera.setPosition([0, 5, 10])
 camera.initMovement();
 
 function getTransformationMatrix() {

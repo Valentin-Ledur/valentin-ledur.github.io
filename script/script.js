@@ -31,6 +31,7 @@ controls.update();
 const loader = new GLTFLoader();
 const gltf = await loader.loadAsync('models/Untitled.glb');
 scene.add(gltf.scene);
+scene.fog = new THREE.Fog( 0xcccccc, 10, 15 );
 
 function animate() {
     renderer.render(scene, camera);
