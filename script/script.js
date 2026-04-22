@@ -5,6 +5,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const canvas = document.getElementById('canvas-container');
 
 const scene = new THREE.Scene();
+const fogColor = 0x111111;
+scene.background = new THREE.Color(fogColor);
+scene.fog = new THREE.Fog(fogColor, 10, 50);
 const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
@@ -31,7 +34,6 @@ controls.update();
 const loader = new GLTFLoader();
 const gltf = await loader.loadAsync('models/Untitled.glb');
 scene.add(gltf.scene);
-scene.fog = new THREE.Fog( 0xcccccc, 10, 15 );
 
 function animate() {
     renderer.render(scene, camera);
