@@ -189,10 +189,15 @@ const projectionMatrix = mat4.perspective((2 * Math.PI) / 5, aspect, 1, 100.0);
 const modelMatrix = mat4.create();
 const modelViewProjectionMatrix = mat4.create()
 
-
 let camera = new Camera(canvas.width, canvas.height);
 camera.setPosition([0, 5, 10])
 camera.initMovement();
+
+window.addEventListener('resize', () => {
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+});
 
 function getTransformationMatrix() {
     const now = Date.now() / 1000;
