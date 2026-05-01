@@ -194,9 +194,7 @@ camera.setPosition([0, 5, 10])
 camera.initMovement();
 
 window.addEventListener('resize', () => {
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    camera.setScreenSize(canvas.clientWidth, canvas.clientHeight);
 });
 
 function getTransformationMatrix() {
